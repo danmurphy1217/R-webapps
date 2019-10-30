@@ -3,7 +3,7 @@
 # the 'Run App' button above.
 #
 # Find out more about building applications with Shiny here:
-#
+# https://rstudio.github.io/shinydashboard/structure.html
 #    http://shiny.rstudio.com/
 #
 
