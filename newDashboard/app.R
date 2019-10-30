@@ -10,28 +10,47 @@
 library(shiny)
 library(shinydashboard)
 
-userint <- dashboardPage(
-  dashboardHeader(title = "Dan's Data Dashboard"),
-  dashboardSidebar(),
-  dashboardBody(
-    #assign plots to a row/column
-    fluidRow(
-      box(plotOutput("plotone", height = 500)),
-      
-      box(title = "Slider!", sliderInput("slider", "Number of Observations:", 0, 100, 10)
-      )
+
+header <- dashboardHeader(
+    title = "Dan's Dashboard",
+    dropdownMenu(type = "notifications",
+                 notificationItem(
+                     text = "Welcome to my data dashboard",
+                     icon("users")
+                 ),
+                 notificationItem(
+                     text= "I hope you enjoy my site!",
+                     icon("users"),
+                     status = "warning"
+                 )
+         ),
+    dropdownMenu( type = "tasks", badgeStatus = "success",
+                  taskItem(value = 100, color = "green", "Register & Log In"),
+                  taskItem(value = 75, color = "yellow", "Finalize Dashboard Header"),
+                  taskItem(value = 50, color = "orange", "Finalize dashboard sidebar"),
+                  taskItem(value = 2.5, color = "red", "Finalize Dashboard Body")
+                 
     )
-  )
 )
 
+sidebar <- dashboardSidebar(
+    
+)
+
+body <- dashboardBody(
+    
+)
+
+userint <- dashboardPage(header, sidebar, body)
+
+
 server <- function(input, output){ 
-  set.seed(122)
-  histdata <- rnorm(500)
-  output$plotone <- renderPlot({
-    Data <- histdata[seq_len(input$slider)]
-    hist(Data, title = "Interactive Histogram")
-  })
+    set.seed(122)
+    histdata <- rnorm(500)
+    output$plotone <- renderPlot({
+        Data <- histdata[seq_len(input$slider)]
+        hist(Data, title = "Interactive Histogram")
+    })
 }
 
 shinyApp(ui = userint, server = server)
-
